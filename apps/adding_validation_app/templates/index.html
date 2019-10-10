@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Blog </title>
+    <style>
+        ul.messages {
+            list-style: none;
+            border: 1px solid darkslategrey;
+            padding: 12px 12px;
+            width: 20%;
+            background-color: lightgreen;
+        }
+    </style>
+</head>
+<body>
+    <form action="/blog/new" method="post">
+        {%csrf_token%}
+        full name:
+        <input type="text" name="name" id=""><br>
+        Description:
+        <input type="text" name="desc" id=""><br><br>
+        <input type="submit" value="create">
+    </form>
+
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+
+
+    <div>
+        <h3>Blog Log</h3>
+        <table>
+            <tr>
+                <th>Blog id</th>
+                <th>name</th>
+                <th>Desc</th>
+                <th>Update  | Delete </th>
+            </tr>
+            {% for i in blog_list %}
+            <tr>
+                <td>
+                    {{i.id}}
+                </td>
+                <td>
+                    {{i.name}}
+                </td>
+                <td>
+                    {{i.desc}}
+                </td>
+                <td>
+                    <a href="/blog/edit/{{i.id}}">Update me</a>
+                    <a href="/blog/destory/{{i.id}}">Destory me</a>
+                </td>
+
+
+
+            </tr>
+            {% endfor%}
+        </table>
+    </div>
+
+</body>
+</html>

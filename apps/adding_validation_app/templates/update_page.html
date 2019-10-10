@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Blog update</title>
+    <style>
+            ul.messages {
+                list-style: none;
+                border: 1px solid darkslategrey;
+                padding: 12px 12px;
+                width: 20%;
+                background-color: lightcoral;
+            }
+    </style>
+</head>
+<body>  
+    
+    <h3> {{spec_blog.name}}</h3>
+    
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+        <form action="/blog/edits/{{spec_blog.id}}" method="post">
+            {%csrf_token%}
+            full name:
+            <input type="text" name="name" id=""><br>
+            Description:
+            <input type="text" name="desc" id=""><br><br>
+            <input type="submit" value="update">
+        </form>
+        <br> <br>
+        <a href="/">Go back</a>
+</body>
+</html>
